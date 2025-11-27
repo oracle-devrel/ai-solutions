@@ -3,7 +3,7 @@ oci==2.159.1
 python-docx==1.1
 pdf2image==1.17.0
 numpy==2.2.6
-pypdf==5.5.0
+pypdf==6.4.0
 opencv-python==4.12.0.88
 tzlocal==5.3.1
 PyMuPDF==1.26.0
