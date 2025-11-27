@@ -5,7 +5,7 @@
     {
       "title": "Introduction",
       "description": "What the workshop is about",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_labeling/intro/intro.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_labeling/intro/intro.md",
       "type": "dbcs"
     },
     {
@@ -16,19 +16,19 @@
     {
       "title": "Lab 1: Explore RoboFlow",
       "description": "Using RoboFlow to find good data",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_labeling/explore/explore.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_labeling/explore/explore.md",
       "type": "dbcs"
     },
     {
       "title": "Lab 2: Manipulate DataSet",
       "description": "Interact with the optimizer.",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_labeling/manipulate/manipulate.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_labeling/manipulate/manipulate.md",
       "type": "dbcs"
     },
     {
       "title": "Lab 3: Infrastructure",
       "description": "Infrastructure",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_labeling/infra/infra.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_labeling/infra/infra.md",
       "type": "dbcs"
     },
     {

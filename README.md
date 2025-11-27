@@ -2,9 +2,15 @@
 
 Welcome to DevRel Labs, a collection of AI solutions and tools built with Oracle technologies. This repository contains practical implementations, demos, and guides for various AI use cases.
 
+## Repository Structure
+
+- `apps/`: Deployable applications, automation scripts, and infrastructure-as-code projects.
+- `workshops/`: Step-by-step guides, LiveLabs content, and educational materials.
+- `notebooks/`: Reserved for notebook-driven explorations and tutorials (currently minimal).
+
 ## 🚀 New AI Solutions (2024)
 
-### 1. [Oracle MCP AI Agents](./oracle-mcp-ai-agents/)
+### 1. [Oracle MCP AI Agents](./apps/oracle-mcp-ai-agents/)
 **Building AI Agents with Model Context Protocol (MCP) and Oracle Database 26ai**
 
 - **MCP Integration**: Secure tool calling between LLMs and Oracle Database
@@ -13,7 +19,7 @@ Welcome to DevRel Labs, a collection of AI solutions and tools built with Oracle
 - **Langflow Integration**: Visual workflow builder for AI agents
 - **Use Cases**: Financial advisor, customer service, business intelligence
 
-### 2. [Oracle RAG Applications](./oracle-rag-applications/)
+### 2. [Oracle RAG Applications](./apps/oracle-rag-applications/)
 **Building RAG Applications with Oracle Database 26ai**
 
 - **Vector Embeddings**: Native vector storage and search
@@ -22,7 +28,7 @@ Welcome to DevRel Labs, a collection of AI solutions and tools built with Oracle
 - **LLM Integration**: Seamless integration with various Large Language Models
 - **Use Cases**: Knowledge management, customer support, content creation
 
-### 3. [Oracle Select AI Insights](./oracle-select-ai-insights/)
+### 3. [Oracle Select AI Insights](./apps/oracle-select-ai-insights/)
 **Talk with Industry-Specific Domain Data and Gain Insights Using Select AI**
 
 - **Natural Language Queries**: Ask questions in plain English
@@ -34,27 +40,27 @@ Welcome to DevRel Labs, a collection of AI solutions and tools built with Oracle
 ## 🔧 Existing Solutions
 
 ### AI & Machine Learning
-- [Agentic RAG](./agentic_rag/) - AI RAG in a BOX Demo using Oracle AI Database 26ai and Local LLMs
-- [PlaneLLM](./planeLLM/) - PlaneLLM integration with Oracle Database
-- [Neural Networks Hero](./neural_networks_hero/) - Neural network implementations and tutorials
+- [Agentic RAG](./apps/agentic_rag/) - AI RAG in a BOX Demo using Oracle AI Database 26ai and Local LLMs
+- [PlaneLLM](./apps/planeLLM/) - PlaneLLM integration with Oracle Database
+- [Neural Networks Hero](./workshops/neural_networks_hero/) - Neural network implementations and tutorials
 
 ### Computer Vision
 - [OCI Vision AI](./oci-vision-ai/) - Computer vision solutions using Oracle Cloud Infrastructure
-- [Mask Detection](./mask_detection_training/) - Training and labeling for mask detection models
+- [Mask Detection](./workshops/mask_detection_training/) - Training and labeling for mask detection models
 
 ### Language & Translation
-- [OCI Language Translation](./oci-language-translation/) - Multi-language translation services
-- [OCI Subtitle Translation](./oci-subtitle-translation/) - Automated subtitle translation
-- [OCI CSV-JSON Translation](./oci-csv-json-translation/) - Data format conversion tools
+- [OCI Language Translation](./apps/oci-language-translation/) - Multi-language translation services
+- [OCI Subtitle Translation](./apps/oci-subtitle-translation/) - Automated subtitle translation
+- [OCI CSV-JSON Translation](./apps/oci-csv-json-translation/) - Data format conversion tools
 
 ### Infrastructure & Deployment
-- [NVIDIA NIM on OKE](./nvidia-nim-oke/) - NVIDIA Inference Microservices on Oracle Container Engine
-- [Holoscan](./holoscan/) - Holoscan applications and deployments
+- [NVIDIA NIM on OKE](./apps/nvidia-nim-oke/) - NVIDIA Inference Microservices on Oracle Container Engine
+- [Holoscan](./apps/holoscan/) - Holoscan applications and deployments
 - [Kubeflow on OKE](./kubeflow-oke-old/) - Machine learning workflows on Kubernetes
 
 ### Data & Analytics
-- [Data in AI Revolution](./data-in-ai-revolution/) - Data-driven AI solutions and insights
-- [RAG in a Box](./rag_in_a_box/) - Retrieval-Augmented Generation solutions
+- [Data in AI Revolution](./workshops/data-in-ai-revolution/) - Data-driven AI solutions and insights
+- [RAG in a Box](./apps/rag_in_a_box/) - Retrieval-Augmented Generation solutions
 
 ## 🚀 Getting Started
 

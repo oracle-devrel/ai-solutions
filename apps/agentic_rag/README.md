@@ -50,8 +50,8 @@ Here you can find a result of using Chain of Thought (CoT) reasoning:
 1. Clone the repository and install dependencies:
 
     ```bash
-    git clone https://github.com/oracle-devrel/devrel-labs.git
-    cd devrel-labs/agentic_rag
+    git clone https://github.com/oracle-devrel/ai-solutions.git
+    cd ai-solutions/apps/agentic_rag
     pip install -r requirements.txt
     ```
 

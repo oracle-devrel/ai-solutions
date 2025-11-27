@@ -101,13 +101,13 @@ spec:
           
           # Clone and set up the application
           cd /app
-          git clone -b agentic_rag_automation https://github.com/vmleon/devrel-labs.git
-          cd devrel-labs/agentic_rag
+          git clone -b "${GIT_BRANCH:-main}" https://github.com/oracle-devrel/ai-solutions.git
+          cd ai-solutions/apps/agentic_rag
           pip install -r requirements.txt
 
           # Move config.yaml file to agentic-rag folder
-          echo "Copying config.yaml to /app/devrel-labs/agentic_rag/config.yaml"
-          cp /app/config.yaml /app/devrel-labs/agentic_rag/config.yaml
+          echo "Copying config.yaml to /app/ai-solutions/apps/agentic_rag/config.yaml"
+          cp /app/config.yaml /app/ai-solutions/apps/agentic_rag/config.yaml
           
           # Start the Gradio app
           echo "Starting Gradio application..."

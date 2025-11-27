@@ -30,8 +30,8 @@ This agentic approach significantly improves the accuracy and relevance of respo
 
 1. Clone the repository and navigate to the project directory:
    ```bash
-   git clone https://github.com/oracle-devrel/devrel-labs.git
-   cd rag_in_a_box
+   git clone https://github.com/oracle-devrel/ai-solutions.git
+   cd ai-solutions/apps/rag_in_a_box
    ```
 
 2. Choose your deployment method:

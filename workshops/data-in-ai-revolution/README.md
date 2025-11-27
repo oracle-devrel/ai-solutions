@@ -20,8 +20,8 @@ An Oracle Cloud Infrastructure (OCI) Account. Although it's not explicitly requi
 
 ### Docs
 
-- [Computer Vision: COVID-19 Mask Detection - Data Labeling](https://oracle-devrel.github.io/devrel-labs/workshops/mask_detection_labeling/index.html)
-- [Computer Vision: COVID-19 Mask Detection - Model Training](https://oracle-devrel.github.io/devrel-labs/workshops/mask_detection_training/index.html?lab=intro)
+- [Computer Vision: COVID-19 Mask Detection - Data Labeling](https://oracle-devrel.github.io/ai-solutions/workshops/mask_detection_labeling/index.html)
+- [Computer Vision: COVID-19 Mask Detection - Model Training](https://oracle-devrel.github.io/ai-solutions/workshops/mask_detection_training/index.html?lab=intro)
 - [Open-source TensorFlow playground](https://playground.tensorflow.org/)
 - [CNN Explainer](https://poloclub.github.io/cnn-explainer/)
 

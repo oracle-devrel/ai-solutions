@@ -89,8 +89,8 @@ This solution supports various document formats and maintains the original file 
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/oracle-devrel/devrel-labs.git
-   cd oci-language-multiple-translation
+   git clone https://github.com/oracle-devrel/ai-solutions.git
+   cd ai-solutions/apps/oci-language-multiple-translation
    ```
 
 2. Install required dependencies:

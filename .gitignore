@@ -32,11 +32,11 @@ Temporary Items
 .csr
 .pem
 
-oci-language-translation/config.yaml
-oci-subtitle-translation/config.yaml
-oci-csv-json-translation/config.yaml
-oci-language-multiple-translation/config.yaml
+apps/oci-language-translation/config.yaml
+apps/oci-subtitle-translation/config.yaml
+apps/oci-csv-json-translation/config.yaml
+apps/oci-language-multiple-translation/config.yaml
 
-agentic_rag/config.yaml
-agentic_rag/chroma_db
-agentic_rag/embeddings
+apps/agentic_rag/config.yaml
+apps/agentic_rag/chroma_db
+apps/agentic_rag/embeddings

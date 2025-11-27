@@ -80,8 +80,8 @@ We will use the OCI Python Source Development Kit to allow a customizable transl
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/oracle-devrel/devrel-labs.git
-   cd oci-csv-json-translation
+   git clone https://github.com/oracle-devrel/ai-solutions.git
+   cd ai-solutions/apps/oci-csv-json-translation
    ```
 
 2. Install required dependencies:

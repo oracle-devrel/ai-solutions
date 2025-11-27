@@ -5,7 +5,7 @@
     {
       "title": "Introduction",
       "description": "What the workshop is about",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_training/intro/intro.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_training/intro/intro.md",
       "type": "dbcs"
     },
     {
@@ -16,19 +16,19 @@
     {
       "title": "Lab 1: Infrastructure",
       "description": "Infrastructure",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_training/infra/infra.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_training/infra/infra.md",
       "type": "dbcs"
     },
     {
       "title": "Lab 2: Train & Augment Dataset",
       "description": "Augmenting the dataset and training the model",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_training/augment_train/augment_train.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_training/augment_train/augment_train.md",
       "type": "dbcs"
     },
     {
       "title": "Lab 3: Inference (Real-Time Predictions)",
       "description": "Using the model to make real-time predictions",
-      "filename": "https://oracle-devrel.github.io/devrel-labs/mask_detection_training/infer/infer.md",
+      "filename": "https://oracle-devrel.github.io/ai-solutions/mask_detection_training/infer/infer.md",
       "type": "dbcs"
     },
     {

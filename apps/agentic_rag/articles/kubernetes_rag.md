@@ -85,8 +85,8 @@ Then, we can start setting up the solution in our cluster by following these ste
 1. Clone the repository containing the Kubernetes manifests:
 
   ```bash
-  git clone https://github.com/oracle-devrel/devrel-labs.git
-  cd devrel-labs/agentic_rag/k8s
+  git clone https://github.com/oracle-devrel/ai-solutions.git
+  cd ai-solutions/apps/agentic_rag/k8s
   ```
 
 2. Create a namespace:
@@ -188,4 +188,4 @@ The deployment of this solution requires the following minimum resources:
 
 ## Conclusion
 
-You can check out the full AI solution and the deployment options we mention in this article in [the official GitHub repository](https://github.com/oracle-devrel/devrel-labs/tree/main/agentic_rag).
+You can check out the full AI solution and the deployment options we mention in this article in [the official GitHub repository](https://github.com/oracle-devrel/ai-solutions/tree/main/apps/agentic_rag).

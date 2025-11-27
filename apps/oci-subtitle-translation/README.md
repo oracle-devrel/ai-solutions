@@ -32,8 +32,8 @@ Perfect for making video content accessible to global audiences with minimal man
 
 1. **Clone and install dependencies:**
    ```bash
-   git clone https://github.com/oracle-devrel/devrel-labs.git
-   cd oci-subtitle-translation
+   git clone https://github.com/oracle-devrel/ai-solutions.git
+   cd ai-solutions/apps/oci-subtitle-translation
    pip install -r requirements.txt
    ```
 
