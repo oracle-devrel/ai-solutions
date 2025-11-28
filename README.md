@@ -1,6 +1,6 @@
-# DevRel Labs - AI Solutions Hub
+# AI Solutions
 
-Welcome to DevRel Labs, a collection of AI solutions and tools built with Oracle technologies. This repository contains practical implementations, demos, and guides for various AI use cases.
+Welcome to the AI Solutions repository, a collection of deployable apps, workshops and tools built with Oracle technologies, some of them featured in [oracle.ai](https://oracle.ai). This repository contains practical implementations, demos, and guides for various AI use cases.
 
 ## Repository Structure
 
