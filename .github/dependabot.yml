@@ -81,6 +81,10 @@ updates:
       - dependency-name: "*"
         update-types:
           - "version-update:semver-major"
+      - dependency-name: "opencv*"
+        update-types:
+          - "version-update:semver-minor"
+          - "version-update:semver-major"
     labels:
       - "dependencies"
 
@@ -99,6 +103,10 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types:
+          - "version-update:semver-major"
+      - dependency-name: "opencv*"
+        update-types:
+          - "version-update:semver-minor"
           - "version-update:semver-major"
     labels:
       - "dependencies"
