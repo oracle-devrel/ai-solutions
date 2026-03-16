@@ -21,7 +21,7 @@
         "yargs-parser": "13.1.2"
     },
     "engines": {
-        "node": ">=12.21.0"
+        "node": ">=20"
     },
     "private": true
 }
