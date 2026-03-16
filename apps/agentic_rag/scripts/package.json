@@ -14,7 +14,7 @@
   "description": "",
   "dependencies": {
     "clear": "^0.1.0",
-    "configstore": "^7.0.0",
+    "configstore": "^8.0.0",
     "ini": "^5.0.0",
     "inquirer": "^12.11.1",
     "moment": "^2.30.1",
