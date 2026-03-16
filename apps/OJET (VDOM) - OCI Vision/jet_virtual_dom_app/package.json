@@ -7,17 +7,17 @@
         "serve": "npx ojet serve"
     },
     "dependencies": {
-        "@oracle/oraclejet": "~16.0.0",
-        "@oracle/oraclejet-core-pack": "~16.0.0",
-        "archiver": "^6.0.1"
+        "@oracle/oraclejet": "~16.0.12",
+        "@oracle/oraclejet-core-pack": "~16.0.12",
+        "archiver": "^7.0.1"
     },
     "devDependencies": {
-        "@oracle/ojet-cli": "~18.0.0",
+        "@oracle/ojet-cli": "~19.0.2",
         "extract-zip": "^1.7.0",
         "fs-extra": "^8.1.0",
-        "glob": "7.2.0",
+        "glob": "^10.5.0",
         "typescript": "5.3.2",
-        "underscore": "^1.10.2",
+        "underscore": "^1.13.8",
         "yargs-parser": "13.1.2"
     },
     "engines": {
