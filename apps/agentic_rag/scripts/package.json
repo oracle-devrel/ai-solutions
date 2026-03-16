@@ -16,7 +16,7 @@
     "clear": "^0.1.0",
     "configstore": "^7.0.0",
     "ini": "^5.0.0",
-    "inquirer": "^12.11.1",
+    "inquirer": "^13.3.2",
     "moment": "^2.30.1",
     "mustache": "^4.2.0",
     "underscore": "^1.13.8",
