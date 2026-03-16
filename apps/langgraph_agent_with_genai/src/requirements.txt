@@ -16,7 +16,7 @@ langchain-core==1.2.11
 langsmith==0.6.3
 langgraph==1.1.0
 langchain-oci==0.2.5
-sentence-transformers==2.7.0
+sentence-transformers==5.3.0
 
 
 
