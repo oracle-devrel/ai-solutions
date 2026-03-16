@@ -13,7 +13,7 @@ poppler-utils==0.1.0
 langchain==1.2.11
 langchain-community==0.4.1
 langchain-core==1.2.11
-langsmith==0.6.3
+langsmith==0.7.18
 langgraph==1.1.0
 langchain-oci==0.2.5
 sentence-transformers==2.7.0
