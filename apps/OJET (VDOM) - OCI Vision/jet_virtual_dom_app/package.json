@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "@oracle/oraclejet": "~16.0.12",
-        "@oracle/oraclejet-core-pack": "~16.0.12",
+        "@oracle/oraclejet-core-pack": "~20.0.0",
         "archiver": "^7.0.1"
     },
     "devDependencies": {
