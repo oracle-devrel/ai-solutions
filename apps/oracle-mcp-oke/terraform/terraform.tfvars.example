@@ -1,0 +1,7 @@
+tenancy_ocid       = "<TENANCY_OCID>"
+compartment_id     = "<COMPARTMENT_OCID>"
+region             = "<OCI_REGION>"
+resource_name_prefix                 = "mcp"
+mcp_container_repository_name        = "audio-repo"
+mcp_client_container_repository_name = "client-repo"
+speech_bucket_name                   = "audio-bucket"

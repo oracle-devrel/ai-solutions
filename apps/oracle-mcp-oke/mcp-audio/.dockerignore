@@ -1,0 +1,22 @@
+__pycache__
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+.venv/
+venv/
+env/
+
+# Allow embedding runtime env files in image when needed.
+# WARNING: this includes secrets in built images.
+!.env
+!.env.*
+
+*.log
+server.log
+
+.git
+.gitignore
+.idea
+.vscode

@@ -1,0 +1,3 @@
+oci
+mcp>=1.8.1
+fastmcp==3.0.0
