@@ -7,7 +7,7 @@ pypdf==6.9.0
 opencv-python==4.13.0.92
 tzlocal==5.3.1
 PyMuPDF==1.27.2
-requests==2.32.5 
+requests==2.33.0 
 oracledb==3.4.2
 poppler-utils==0.1.0
 langchain==1.2.12
