@@ -12,7 +12,7 @@ oracledb==3.4.2
 poppler-utils==0.1.0
 langchain==1.2.12
 langchain-community==0.4.1
-langchain-core==1.2.19
+langchain-core==1.2.22
 langsmith==0.7.18
 langgraph==1.1.2
 langchain-oci==0.2.5
