@@ -30,7 +30,7 @@ def print_header():
     ║         Oracle AI Vector Search + Ollama (Gemma 3)             ║
     ╚════════════════════════════════════════════════════════════════╝
     """
-    console.print(Panel(Textwrap(title, justify="center"), style="bold cyan", subtitle="Control Plane"))
+    console.print(Panel(textwrap.dedent(title).strip(), style="bold cyan", subtitle="Control Plane"))
     console.print(f"[dim]Working Directory: {os.getcwd()}[/dim]\n")
 
 def menu_process_pdfs():

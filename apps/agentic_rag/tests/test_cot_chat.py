@@ -6,7 +6,7 @@ from pathlib import Path
 # Add parent directory to path to import modules
 sys.path.append(str(Path(__file__).parent.parent))
 
-from src.gradio_app import chat
+from gradio_app import chat
 from src.store import VectorStore
 from src.local_rag_agent import LocalRAGAgent
 
@@ -45,7 +45,8 @@ def test_cot_chat():
             from src.OraDBVectorStore import OraDBVectorStore
             vector_store = OraDBVectorStore()
             logger.info("Using Oracle DB Vector Store")
-        except ImportError:
+        except Exception as e:
+            logger.info(f"Oracle DB unavailable ({e}), using ChromaDB")
             vector_store = VectorStore()
             logger.info("Using ChromaDB Vector Store")
         

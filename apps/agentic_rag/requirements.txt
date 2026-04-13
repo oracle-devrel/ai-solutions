@@ -18,5 +18,8 @@ gitingest
 ollama
 oracledb
 sentence-transformers
+requests
+rich
+questionary
 pytest
 pytest-asyncio

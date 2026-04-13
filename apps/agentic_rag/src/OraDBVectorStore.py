@@ -1,13 +1,8 @@
 from typing import List, Dict, Any, Optional
 import json
 import argparse
-import yaml
-import os
-from pathlib import Path
-import oracledb
-from langchain_core.documents import Document
 from langchain_oracledb import OracleVS, OracleEmbeddings
-from db_utils import load_config, get_db_connection
+from .db_utils import load_config, get_db_connection
 
 # --- MONKEYPATCH BEGIN ---
 # Fix for AttributeError: 'str' object has no attribute 'pop'
@@ -39,7 +34,7 @@ try:
                 fixed_results.append(tuple(row_list))
             else:
                 fixed_results.append(row)
-        
+
         return original_read_similarity_output(fixed_results, has_similarity_score, has_embeddings)
 
     # Apply patch
@@ -59,7 +54,7 @@ class OraDBVectorStore:
         """
         # Load Oracle DB credentials from config.yaml
         self.config = load_config()
-        
+
         # Connect to the database using shared utility
         try:
             self.connection = get_db_connection(self.config)
@@ -73,16 +68,16 @@ class OraDBVectorStore:
             print("Using provided custom embedding function.")
         else:
             # Initialize Embeddings
-            # Using OracleEmbeddings with params. 
+            # Using OracleEmbeddings with params.
             # Defaulting to 'database' provider and 'ALL_MINILM_L12_V2' which we just loaded.
             # This should be configured in config.yaml for production.
             embed_params = self.config.get("ORACLE_EMBEDDINGS_PARAMS", {"provider": "database", "model": "ALL_MINILM_L12_V2"})
             if isinstance(embed_params, str):
                  try:
                      embed_params = json.loads(embed_params)
-                 except:
+                 except (json.JSONDecodeError, TypeError, ValueError):
                      pass
-            
+
             self.embeddings = OracleEmbeddings(conn=self.connection, params=embed_params)
 
         # Initialize Tables (Collections)
@@ -92,7 +87,7 @@ class OraDBVectorStore:
             "REPOCOLLECTION": "REPOCOLLECTION",
             "GENERALCOLLECTION": "GENERALCOLLECTION"
         }
-        
+
         # Initialize OracleVS instances
         self.vector_stores = {}
         for name, table in self.collections.items():
@@ -103,9 +98,9 @@ class OraDBVectorStore:
                 distance_strategy="EUCLIDEAN_DISTANCE" # Matching previous logic
             )
             # Create table if not exists (OracleVS typically handles this on valid calls or we might need explicit index creation)
-            # OracleVS might auto-create on add_texts? We'll see. 
+            # OracleVS might auto-create on add_texts? We'll see.
             # If not, we rely on the fact that old implementation created them, or OracleVS will error.
-            # Ideally OracleVS has a creates methods? 
+            # Ideally OracleVS has a creates methods?
             # We will assume existing tables from old implementation are compatible OR OracleVS will manage.
             # Actually, old impl created tables with specific schema. OracleVS might expect specific schema (id, text, metadata, embedding).
             # The schema in old impl: id, text, metadata, embedding. This seems standard.
@@ -113,7 +108,7 @@ class OraDBVectorStore:
     def _load_config(self) -> Dict[str, str]:
         """Load configuration from config.yaml"""
         return load_config()
-            
+
     def _sanitize_metadata(self, metadata: Dict) -> Dict:
         """Sanitize metadata to ensure all values are valid types"""
         sanitized = {}
@@ -132,14 +127,14 @@ class OraDBVectorStore:
         """Helper to add chunks to a specific collection"""
         if not chunks:
             return
-            
+
         store = self.vector_stores.get(collection_name)
         if not store:
             raise ValueError(f"Collection {collection_name} not found")
-            
+
         texts = [chunk["text"] for chunk in chunks]
         metadatas = [self._sanitize_metadata(chunk["metadata"]) for chunk in chunks]
-        
+
         # OracleVS add_texts
         print(f"🔄 [OraDB] Inserting {len(chunks)} chunks into {collection_name}...")
         store.add_texts(texts=texts, metadatas=metadatas)
@@ -149,15 +144,15 @@ class OraDBVectorStore:
     def add_pdf_chunks(self, chunks: List[Dict[str, Any]], document_id: str):
         """Add chunks from a PDF document to the vector store"""
         self._add_chunks_to_collection(chunks, "PDFCOLLECTION")
-        
+
     def add_web_chunks(self, chunks: List[Dict[str, Any]], source_id: str):
         """Add chunks from web content to the vector store"""
         self._add_chunks_to_collection(chunks, "WEBCOLLECTION")
-        
+
     def add_general_knowledge(self, chunks: List[Dict[str, Any]], source_id: str):
         """Add general knowledge chunks to the vector store"""
         self._add_chunks_to_collection(chunks, "GENERALCOLLECTION")
-        
+
     def add_repo_chunks(self, chunks: List[Dict[str, Any]], document_id: str):
         """Add chunks from a repository to the vector store"""
         self._add_chunks_to_collection(chunks, "REPOCOLLECTION")
@@ -168,9 +163,9 @@ class OraDBVectorStore:
         store = self.vector_stores.get(collection_name)
         if not store:
             return []
-            
+
         docs = store.similarity_search(query, k=n_results)
-        
+
         formatted_results = []
         for doc in docs:
             result = {
@@ -178,7 +173,7 @@ class OraDBVectorStore:
                 "metadata": doc.metadata
             }
             formatted_results.append(result)
-            
+
         print(f"🔍 [OracleVS] Retrieved {len(formatted_results)} chunks from {collection_name}")
         return formatted_results
 
@@ -199,10 +194,10 @@ class OraDBVectorStore:
         store = self.vector_stores.get(collection_name)
         if not store:
             raise ValueError(f"Collection {collection_name} not found")
-            
+
         if delete_all:
             # OracleVS might not support delete_all directly, but we can try dropping/truncating via SQL if needed,
-            # but sticking to package interface first. 
+            # but sticking to package interface first.
             # If delete_all is true, we might just want to drop table contents.
             # However, typically vector stores delete by ID.
             # Implementing simple delete by ID for now or using SQL for mass delete if package allows.
@@ -237,7 +232,7 @@ class OraDBVectorStore:
             if result:
                 return result[0]
             return 0
-        except Exception as e:
+        except Exception:
             # Table might not exist yet
             return 0
 
@@ -248,21 +243,21 @@ class OraDBVectorStore:
             return {}
         try:
             cursor = self.connection.cursor()
-            # Fetch one row. No guarantee of order without timestamp column, 
+            # Fetch one row. No guarantee of order without timestamp column,
             # but ROWNUM 1 gives us *a* chunk.
             # Using simple query assuming standard columns
             cursor.execute(f"SELECT text, metadata FROM {table_name} WHERE ROWNUM <= 1")
             row = cursor.fetchone()
             cursor.close()
-            
+
             if row:
                 text = row[0]
                 metadata = row[1]
-                
+
                 # Handle LOBs if necessary
                 if hasattr(metadata, 'read'):
                     metadata = metadata.read()
-                
+
                 # If metadata is string, valid for return. The caller parses it.
                 return {
                     "content": text,
@@ -285,7 +280,7 @@ class OraDBVectorStore:
             cursor.execute(f"SELECT embedding FROM {table_name} FETCH FIRST 1 ROWS ONLY")
             row = cursor.fetchone()
             cursor.close()
-            
+
             if row and row[0]:
                 # Oracle VECTOR type can be converted to list/string or accessed directly
                 # If it comes back as a string/object, we need to inspect it
@@ -326,28 +321,28 @@ def main():
     parser.add_argument("--add", help="JSON file containing chunks to add")
     parser.add_argument("--add-web", help="JSON file containing web chunks to add")
     parser.add_argument("--query", help="Query to search for")
-    
+
     args = parser.parse_args()
     try:
         store = OraDBVectorStore()
-        
+
         if args.add:
             with open(args.add, 'r', encoding='utf-8') as f:
                 chunks = json.load(f)
             store.add_pdf_chunks(chunks, document_id=args.add)
             print(f"✓ Added {len(chunks)} PDF chunks to Oracle DB vector store")
-        
+
         if args.add_web:
             with open(args.add_web, 'r', encoding='utf-8') as f:
                 chunks = json.load(f)
             store.add_web_chunks(chunks, source_id=args.add_web)
             print(f"✓ Added {len(chunks)} web chunks to Oracle DB vector store")
-        
+
         if args.query:
             # Query both collections
             pdf_results = store.query_pdf_collection(args.query)
             web_results = store.query_web_collection(args.query)
-            
+
             print("\nPDF Results:")
             print("-" * 50)
             for result in pdf_results:
@@ -355,7 +350,7 @@ def main():
                 print(f"Source: {result['metadata'].get('source', 'Unknown')}")
                 print(f"Pages: {result['metadata'].get('page_numbers', [])}")
                 print("-" * 50)
-            
+
             print("\nWeb Results:")
             print("-" * 50)
             for result in web_results:
@@ -363,7 +358,7 @@ def main():
                 print(f"Source: {result['metadata'].get('source', 'Unknown')}")
                 print(f"Title: {result['metadata'].get('title', 'Unknown')}")
                 print("-" * 50)
-                
+
     except Exception as e:
         print(f"Error: {e}")
 

@@ -12,7 +12,7 @@ from typing import Dict, Any
 BASE_URL = "http://localhost:8000"
 TIMEOUT = 10
 
-def test_endpoint(method: str, endpoint: str, data: Dict[str, Any] = None, files: Dict = None) -> Dict[str, Any]:
+def __test_endpoint(method: str, endpoint: str, data: Dict[str, Any] = None, files: Dict = None) -> Dict[str, Any]:
     """Test a single API endpoint"""
     url = f"{BASE_URL}{endpoint}"
     print(f"\n{'='*60}")
@@ -66,12 +66,12 @@ def main():
     
     # Test 1: Health Check
     print("\n[Test 1] Health Check")
-    result = test_endpoint("GET", "/a2a/health")
+    result = _test_endpoint("GET", "/a2a/health")
     results.append(("Health Check", result))
     
     # Test 2: Agent Card
     print("\n[Test 2] Agent Card")
-    result = test_endpoint("GET", "/agent_card")
+    result = _test_endpoint("GET", "/agent_card")
     results.append(("Agent Card", result))
     
     # Test 3: A2A Protocol - Health Check
@@ -82,7 +82,7 @@ def main():
         "params": {},
         "id": "test-1"
     }
-    result = test_endpoint("POST", "/a2a", a2a_health)
+    result = _test_endpoint("POST", "/a2a", a2a_health)
     results.append(("A2A Health", result))
     
     # Test 4: A2A Protocol - Document Query
@@ -98,7 +98,7 @@ def main():
         },
         "id": "test-2"
     }
-    result = test_endpoint("POST", "/a2a", a2a_query)
+    result = _test_endpoint("POST", "/a2a", a2a_query)
     results.append(("A2A Document Query", result))
     
     # Test 5: Standard Query Endpoint
@@ -107,17 +107,17 @@ def main():
         "query": "What is machine learning?",
         "use_cot": False
     }
-    result = test_endpoint("POST", "/query", query_data)
+    result = _test_endpoint("POST", "/query", query_data)
     results.append(("Standard Query", result))
     
     # Test 6: API Documentation
     print("\n[Test 6] API Documentation")
-    result = test_endpoint("GET", "/docs")
+    result = _test_endpoint("GET", "/docs")
     results.append(("API Docs", result))
     
     # Test 7: OpenAPI Schema
     print("\n[Test 7] OpenAPI Schema")
-    result = test_endpoint("GET", "/openapi.json")
+    result = _test_endpoint("GET", "/openapi.json")
     results.append(("OpenAPI Schema", result))
     
     # Summary

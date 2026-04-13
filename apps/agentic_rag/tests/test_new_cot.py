@@ -14,8 +14,8 @@ import yaml
 # Configure rich console
 console = Console()
 
-def test_multi_agent_cot(agent, query: str, description: str):
-    """Test the multi-agent Chain of Thought system"""
+def run_multi_agent_cot(agent, query: str, description: str):
+    """Run a multi-agent Chain of Thought test case"""
     console.print(f"\n[bold cyan]Test Case: {description}")
     console.print(Panel(f"Query: {query}", style="yellow"))
     
@@ -69,9 +69,9 @@ def main():
             from src.OraDBVectorStore import OraDBVectorStore
             store = OraDBVectorStore()
             console.print("[green]Using Oracle DB Vector Store[/green]")
-        except ImportError:
+        except Exception as e:
+            console.print(f"[yellow]Oracle DB unavailable ({e}), using ChromaDB[/yellow]")
             store = VectorStore(persist_directory=args.store_path)
-            console.print("[yellow]Using ChromaDB Vector Store[/yellow]")
         
         # Initialize appropriate agent
         # Always use LocalRAGAgent with gemma3:270m
@@ -99,7 +99,7 @@ def main():
         
         # Run test cases
         for test_case in test_cases:
-            test_multi_agent_cot(agent, test_case["query"], test_case["description"])
+            run_multi_agent_cot(agent, test_case["query"], test_case["description"])
             console.print("\n" + "=" * 80)
     
     except Exception as e:

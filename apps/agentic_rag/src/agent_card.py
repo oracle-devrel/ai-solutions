@@ -5,12 +5,12 @@ This module defines the agent card that describes the capabilities
 and configuration of the agentic_rag system for A2A protocol.
 """
 
-from src.a2a_models import AgentCard, AgentCapability, AgentEndpoint
+from .a2a_models import AgentCard, AgentCapability, AgentEndpoint
 
 
 def get_agent_card() -> dict:
     """Get the agent card for the agentic_rag system"""
-    
+
     # Define capabilities
     capabilities = [
         AgentCapability(
@@ -230,7 +230,7 @@ def get_agent_card() -> dict:
             }
         )
     ]
-    
+
     # Define endpoint configuration
     endpoint = AgentEndpoint(
         base_url="http://localhost:8000",
@@ -240,7 +240,7 @@ def get_agent_card() -> dict:
             "description": "Optional bearer token authentication"
         }
     )
-    
+
     # Create agent card
     agent_card = AgentCard(
         agent_id="agentic_rag_v1",
@@ -264,7 +264,7 @@ def get_agent_card() -> dict:
             }
         }
     )
-    
+
     return agent_card.model_dump()
 
 

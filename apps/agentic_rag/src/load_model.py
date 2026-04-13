@@ -1,7 +1,6 @@
 
 import oracledb
 import yaml
-import os
 import requests
 import zipfile
 import io
@@ -26,7 +25,7 @@ def download_and_extract_model():
     print(f"📥 Downloading model from {ZIP_URL}...")
     response = requests.get(ZIP_URL)
     response.raise_for_status()
-    
+
     print("📦 Extracting ONNX file...")
     with zipfile.ZipFile(io.BytesIO(response.content)) as z:
         # List files to find the exact name if needed, but we assume it matches
@@ -38,23 +37,23 @@ def download_and_extract_model():
 
 def upload_blob_to_db_file(conn, file_content):
     cursor = conn.cursor()
-    
+
     # 1. Create Temp Table
     print("🛠️ Creating temporary table for upload...")
     try:
         cursor.execute("DROP TABLE TEMP_ONNX_UPLOAD PURGE")
     except oracledb.DatabaseError:
         pass
-        
+
     cursor.execute("CREATE TABLE TEMP_ONNX_UPLOAD (id NUMBER, data BLOB)")
-    
+
     # 2. Insert BLOB
     print(f"Tb Uploading {len(file_content)} bytes to database table...")
     blob_var = cursor.var(oracledb.DB_TYPE_BLOB)
     blob_var.setvalue(0, file_content)
     cursor.execute("INSERT INTO TEMP_ONNX_UPLOAD VALUES (1, :1)", [blob_var])
     conn.commit()
-    
+
     # 3. Write to File using UTL_FILE
     print(f"💾 Writing blob to {DIRECTORY_NAME}/{ONNX_FILENAME}...")
     plsql = f"""
@@ -89,7 +88,7 @@ def upload_blob_to_db_file(conn, file_content):
     END;
     """
     cursor.execute(plsql)
-    
+
     # 4. Cleanup Table
     cursor.execute("DROP TABLE TEMP_ONNX_UPLOAD PURGE")
     print("✅ File uploaded successfully.")
@@ -97,13 +96,13 @@ def upload_blob_to_db_file(conn, file_content):
 def load_onnx_model(conn):
     cursor = conn.cursor()
     print(f"🤖 Loading ONNX model '{MODEL_NAME}' via DBMS_VECTOR...")
-    
+
     # Drop existing model if forced
     try:
         cursor.execute(f"BEGIN DBMS_VECTOR.DROP_ONNX_MODEL(model_name => '{MODEL_NAME}', force => true); END;")
     except oracledb.DatabaseError as e:
         print(f"   (Info: Drop failed or not needed: {e})")
-        
+
     # Load Model
     cursor.execute(f"""
     BEGIN
@@ -158,7 +157,7 @@ def ensure_model_loaded(conn=None, force_reload=False):
         upload_blob_to_db_file(conn, onnx_content)
         load_onnx_model(conn)
         return True
-    
+
     except Exception as e:
         print(f"❌ Error ensuring model loaded: {e}")
         return False
@@ -170,19 +169,18 @@ def main():
     try:
         conn = get_db_connection()
         print("🔌 Connected to Oracle DB")
-        
+
         # Check if model already exists?
         # By default, use ensure_model_loaded logic which checks first
         success = ensure_model_loaded(conn, force_reload=True) # Keeping force=True for direct script execution as per likely intent of running THIS script directly
-        
-        if success:
-             print("\n🎉 Success! Model is ready for use.")
-        else:
-             print("\n❌ Failed to load model.")
-        
+
         conn.close()
-        print("\n🎉 Success! Model is ready for use.")
-        
+
+        if success:
+            print("\n🎉 Success! Model is ready for use.")
+        else:
+            print("\n❌ Failed to load model.")
+
     except Exception as e:
         print(f"\n❌ Error: {e}")
         sys.exit(1)

@@ -48,7 +48,24 @@ build/
 *.egg-info/
 
 # Logs
-*.log 
+*.log
+
+# Config with credentials (use config_example.yaml as template)
+config.yaml
+
+# Test cache
+.pytest_cache/
+
+# Agent/tool local directories
+.agents/
+.claude/
+.crush/
+.openhands/
+.serena/
+.omc/
+.playwright-mcp/
+dogfood-output/
+
 # Planning files (local only)
 docs/plans/
 task_plan.md

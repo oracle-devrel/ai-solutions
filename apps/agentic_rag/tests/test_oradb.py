@@ -107,8 +107,8 @@ def check_collection_stats(store):
         except Exception as e:
             print(f"Error checking {name}: {str(e)}")
 
-def test_add_and_query(store, query_text="machine learning"):
-    """Test adding simple data and querying it"""
+def run_add_and_query(store, query_text="machine learning"):
+    """Run add-and-query test with the given store"""
     if not store:
         print("Skipping add and query test as connection failed")
         return

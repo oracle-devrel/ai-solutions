@@ -72,7 +72,7 @@ else:
 
 # Check for Ollama availability
 try:
-    import ollama
+    import ollama  # noqa: F401
     ollama_available = True
     print("\nOllama is available. You can use Ollama models for RAG.")
 except ImportError:
@@ -109,10 +109,10 @@ class QueryResponse(BaseModel):
 async def upload_pdf(file: UploadFile = File(...)):
     """Upload and process a PDF file"""
     start_time = time.time()
-    
+
     if not file.filename.lower().endswith('.pdf'):
         raise HTTPException(status_code=400, detail="File must be a PDF")
-    
+
     temp_path = None
     try:
         # Save the uploaded file temporarily
@@ -120,18 +120,18 @@ async def upload_pdf(file: UploadFile = File(...)):
         with open(temp_path, "wb") as buffer:
             content = await file.read()
             buffer.write(content)
-        
+
         # Process the PDF
         chunks, document_id = pdf_processor.process_pdf(temp_path)
-        
+
         # Add chunks to vector store
         vector_store.add_pdf_chunks(chunks, document_id=document_id)
-        
+
         # Clean up
         os.remove(temp_path)
-        
+
         processing_time = (time.time() - start_time) * 1000  # Convert to ms
-        
+
         # Log the event
         if EVENT_LOGGING_ENABLED:
             event_logger.log_document_event(
@@ -142,7 +142,7 @@ async def upload_pdf(file: UploadFile = File(...)):
                 processing_time_ms=processing_time,
                 status="success"
             )
-            
+
             event_logger.log_api_event(
                 endpoint="/upload/pdf",
                 method="POST",
@@ -151,19 +151,19 @@ async def upload_pdf(file: UploadFile = File(...)):
                 status_code=200,
                 duration_ms=processing_time
             )
-        
+
         return {
             "message": "PDF processed successfully",
             "document_id": document_id,
             "chunks_processed": len(chunks)
         }
-        
+
     except Exception as e:
         if temp_path and os.path.exists(temp_path):
             os.remove(temp_path)
-        
+
         processing_time = (time.time() - start_time) * 1000
-        
+
         # Log the error
         if EVENT_LOGGING_ENABLED:
             event_logger.log_document_event(
@@ -175,7 +175,7 @@ async def upload_pdf(file: UploadFile = File(...)):
                 status="error",
                 error_message=str(e)
             )
-        
+
         raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/query", response_model=QueryResponse)
@@ -183,7 +183,7 @@ async def query(request: QueryRequest):
     """Process a query using the RAG agent"""
     start_time = time.time()
     model_name = request.model if request.model else "default"
-    
+
     try:
         # Determine which model to use
         if request.model:
@@ -199,17 +199,17 @@ async def query(request: QueryRequest):
             # But here we are re-instantiating.
             rag_agent = LocalRAGAgent(vector_store=vector_store, model_name="gemma3:270m", use_cot=request.use_cot)
             model_type = "ollama"
-            
+
         response = rag_agent.process_query(request.query)
-        
+
         processing_time = (time.time() - start_time) * 1000  # Convert to ms
-        
+
         # Log the event
         if EVENT_LOGGING_ENABLED:
             # Extract context info
             context_count = len(response.get("context", [])) if isinstance(response, dict) else 0
             answer = response.get("answer", "") if isinstance(response, dict) else str(response)
-            
+
             event_logger.log_model_event(
                 model_name=model_name,
                 model_type=model_type,
@@ -220,7 +220,7 @@ async def query(request: QueryRequest):
                 duration_ms=processing_time,
                 context_chunks=context_count
             )
-            
+
             event_logger.log_api_event(
                 endpoint="/query",
                 method="POST",
@@ -229,11 +229,11 @@ async def query(request: QueryRequest):
                 status_code=200,
                 duration_ms=processing_time
             )
-        
+
         return response
     except Exception as e:
         processing_time = (time.time() - start_time) * 1000
-        
+
         # Log the error
         if EVENT_LOGGING_ENABLED:
             event_logger.log_api_event(
@@ -244,7 +244,7 @@ async def query(request: QueryRequest):
                 status_code=500,
                 duration_ms=processing_time
             )
-        
+
         raise HTTPException(status_code=500, detail=str(e))
 
 # A2A Protocol endpoints
@@ -252,12 +252,12 @@ async def query(request: QueryRequest):
 async def a2a_endpoint(request: A2ARequest):
     """A2A Protocol endpoint for agent-to-agent communication"""
     start_time = time.time()
-    
+
     try:
         response = await a2a_handler.handle_request(request)
-        
+
         processing_time = (time.time() - start_time) * 1000
-        
+
         # Log A2A API event
         if EVENT_LOGGING_ENABLED:
             event_logger.log_api_event(
@@ -268,11 +268,11 @@ async def a2a_endpoint(request: A2ARequest):
                 status_code=200,
                 duration_ms=processing_time
             )
-        
+
         return response
     except Exception as e:
         processing_time = (time.time() - start_time) * 1000
-        
+
         if EVENT_LOGGING_ENABLED:
             event_logger.log_api_event(
                 endpoint="/a2a",
@@ -303,7 +303,7 @@ async def get_event_statistics():
     """Get event logging statistics"""
     if not EVENT_LOGGING_ENABLED:
         raise HTTPException(status_code=503, detail="Event logging is not enabled")
-    
+
     try:
         stats = event_logger.get_statistics()
         return stats
@@ -315,19 +315,19 @@ async def get_events(event_type: str, limit: int = 100):
     """Get events by type (all, a2a, api, model, document, query)"""
     if not EVENT_LOGGING_ENABLED:
         raise HTTPException(status_code=503, detail="Event logging is not enabled")
-    
+
     valid_types = ["all", "a2a", "api", "model", "document", "query"]
     if event_type not in valid_types:
         raise HTTPException(status_code=400, detail=f"Invalid event type. Must be one of: {', '.join(valid_types)}")
-    
+
     try:
         events = event_logger.get_events(event_type=event_type, limit=limit)
-        
+
         # Convert datetime objects to strings for JSON serialization
         for event in events:
             if 'TIMESTAMP' in event and event['TIMESTAMP']:
                 event['TIMESTAMP'] = str(event['TIMESTAMP'])
-        
+
         return {
             "event_type": event_type,
             "count": len(events),
@@ -341,11 +341,11 @@ async def get_event_count(event_type: str):
     """Get count of events by type"""
     if not EVENT_LOGGING_ENABLED:
         raise HTTPException(status_code=503, detail="Event logging is not enabled")
-    
+
     valid_types = ["all", "a2a", "api", "model", "document", "query"]
     if event_type not in valid_types:
         raise HTTPException(status_code=400, detail=f"Invalid event type. Must be one of: {', '.join(valid_types)}")
-    
+
     try:
         count = event_logger.get_event_count(event_type=event_type)
         return {
@@ -357,4 +357,4 @@ async def get_event_count(event_type: str):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host="0.0.0.0", port=8000)
