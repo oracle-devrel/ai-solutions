@@ -9,8 +9,6 @@ This script demonstrates the data lake functionality by:
 """
 
 import sys
-import time
-from datetime import datetime
 
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

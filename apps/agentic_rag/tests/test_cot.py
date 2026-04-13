@@ -10,7 +10,6 @@ import yaml
 import argparse
 from rich.console import Console
 from rich.panel import Panel
-from rich.table import Table
 
 console = Console()
 
@@ -54,9 +53,9 @@ def compare_responses(agent, query: str, description: str):
 def main():
     parser = argparse.ArgumentParser(description="Compare standard vs Chain of Thought prompting")
     parser.add_argument("--model", default='local', help="Model to use (default: gemma3:270m)")
-    args = parser.parse_args()
-    
-    config = load_config()
+    _args = parser.parse_args()
+
+    _config = load_config()
     
     # Try Oracle first, then Chroma
     try:

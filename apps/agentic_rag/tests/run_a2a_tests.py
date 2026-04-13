@@ -7,9 +7,7 @@ for testing the implementation.
 """
 
 import sys
-import asyncio
 import subprocess
-from pathlib import Path
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -52,7 +50,7 @@ def run_quick_test():
     
     try:
         # Import and test basic functionality
-        from src.a2a_models import A2ARequest, A2AResponse
+        from src.a2a_models import A2ARequest
         from src.agent_card import get_agent_card
         from src.task_manager import TaskManager
         from src.agent_registry import AgentRegistry
@@ -66,12 +64,12 @@ def run_quick_test():
         
         # Test task manager
         print("Testing task manager...")
-        task_manager = TaskManager()
+        _task_manager = TaskManager()
         print("✅ Task manager created")
-        
+
         # Test agent registry
         print("Testing agent registry...")
-        registry = AgentRegistry()
+        _registry = AgentRegistry()
         print("✅ Agent registry created")
         
         # Test A2A models

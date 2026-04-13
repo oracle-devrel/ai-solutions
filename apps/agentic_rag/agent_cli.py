@@ -2,25 +2,41 @@
 import os
 import sys
 import subprocess
-import time
 from src.load_model import ensure_model_loaded
-from typing import Optional, List
-from threading import Thread
 import textwrap
 
 try:
     from rich.console import Console
     from rich.panel import Panel
     from rich.prompt import Prompt, Confirm
-    from rich.table import Table
     from rich.progress import Progress, SpinnerColumn, TextColumn
-    from rich import print as rprint
     import questionary
 except ImportError:
     print("Error: 'rich' and 'questionary' libraries are required. Please install them with: pip install rich questionary")
     sys.exit(1)
 
-# ... (Previous imports and init remain)
+console = Console()
+
+
+def clear_screen():
+    """Clear the terminal screen."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+
+def run_command(cmd, message="Running..."):
+    """Run a subprocess command with a progress spinner."""
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        console=console,
+    ) as progress:
+        progress.add_task(description=message, total=None)
+        result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.stdout:
+        console.print(result.stdout)
+    if result.returncode != 0 and result.stderr:
+        console.print(f"[red]{result.stderr}[/red]")
+
 
 def print_header():
     clear_screen()

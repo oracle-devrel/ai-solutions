@@ -5,7 +5,6 @@ from sentence_transformers import SentenceTransformer
 import array
 import oracledb
 import yaml
-import os
 from pathlib import Path
 
 
@@ -162,7 +161,6 @@ class OraDBVectorStore:
         # Encode all texts in a batch
         embeddings = self.encoder.encode(texts, batch_size=32, show_progress_bar=True)
 
-        table_name = "WebCollection"
         # No truncation for web chunks, just append new ones
 
         # Insert embeddings into Oracle
@@ -190,8 +188,6 @@ class OraDBVectorStore:
         # Encode all texts in a batch
         embeddings = self.encoder.encode(texts, batch_size=32, show_progress_bar=True)
 
-        table_name = "GeneralCollection"
-        
         # Insert embeddings into Oracle
         for i, (docid, text, metadata, embedding) in enumerate(zip(ids, texts, metadatas, embeddings), start=1):
             json_metadata = json.dumps(metadata)  # Convert to JSON string
@@ -216,8 +212,6 @@ class OraDBVectorStore:
         
         # Encode all texts in a batch
         embeddings = self.encoder.encode(texts, batch_size=32, show_progress_bar=True)
-
-        table_name = "RepoCollection"
 
         # Insert embeddings into Oracle
         for i, (docid, text, metadata, embedding) in enumerate(zip(ids, texts, metadatas, embeddings), start=1):

@@ -9,7 +9,6 @@ from rich.panel import Panel
 from src.store import VectorStore
 # from rag_agent import RAGAgent # Removed
 from src.local_rag_agent import LocalRAGAgent
-import yaml
 
 # Configure rich console
 console = Console()

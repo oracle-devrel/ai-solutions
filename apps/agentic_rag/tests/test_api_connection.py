@@ -12,7 +12,7 @@ from typing import Dict, Any
 BASE_URL = "http://localhost:8000"
 TIMEOUT = 10
 
-def __test_endpoint(method: str, endpoint: str, data: Dict[str, Any] = None, files: Dict = None) -> Dict[str, Any]:
+def _test_endpoint(method: str, endpoint: str, data: Dict[str, Any] = None, files: Dict = None) -> Dict[str, Any]:
     """Test a single API endpoint"""
     url = f"{BASE_URL}{endpoint}"
     print(f"\n{'='*60}")
@@ -37,7 +37,7 @@ def __test_endpoint(method: str, endpoint: str, data: Dict[str, Any] = None, fil
             response_json = response.json()
             print(f"Response: {json.dumps(response_json, indent=2)}")
             return {"status_code": response.status_code, "response": response_json, "success": True}
-        except:
+        except (ValueError, KeyError):
             print(f"Response (text): {response.text[:500]}")
             return {"status_code": response.status_code, "response": response.text, "success": response.status_code < 400}
             
@@ -46,7 +46,7 @@ def __test_endpoint(method: str, endpoint: str, data: Dict[str, Any] = None, fil
         print(error_msg)
         print(f"   Details: {str(e)}")
         return {"error": error_msg, "success": False}
-    except requests.exceptions.Timeout as e:
+    except requests.exceptions.Timeout:
         error_msg = f"[ERROR] Timeout: Request to {BASE_URL} timed out after {TIMEOUT}s"
         print(error_msg)
         return {"error": error_msg, "success": False}

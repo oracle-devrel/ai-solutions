@@ -86,7 +86,7 @@ def check_collection_stats(store):
                 if isinstance(latest['metadata'], str):
                     try:
                         metadata = json.loads(latest['metadata'])
-                    except:
+                    except (ValueError, KeyError):
                         metadata = {"source": latest['metadata']}
                 else:
                     metadata = latest['metadata']
@@ -188,7 +188,7 @@ def main():
     
     # Check if oracledb is installed
     try:
-        import oracledb
+        import oracledb  # noqa: F401
         print("✓ oracledb package is installed")
     except ImportError:
         print("✗ oracledb package is not installed.")
@@ -197,7 +197,7 @@ def main():
     
     # Check if sentence_transformers is installed
     try:
-        import sentence_transformers
+        import sentence_transformers  # noqa: F401
         print("✓ sentence_transformers package is installed")
     except ImportError:
         print("✗ sentence_transformers package is not installed.")
@@ -231,7 +231,7 @@ ORACLE_DB_DSN: your_connection_string_here
     # If stats-only flag is not set, also test add and query functionality
     if not args.stats_only:
         # Test add and query functionality
-        test_add_and_query(store, args.query)
+        run_add_and_query(store, args.query)
     
     print("\n=== Test Completed ===")
 

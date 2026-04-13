@@ -104,7 +104,7 @@ class A2ATester:
             card_response = requests.get(f"{self.base_url}/agent_card", timeout=10)
             if card_response.status_code != 200:
                 print(f"❌ Agent Registration: FAILED - Could not get agent card (HTTP {card_response.status_code})")
-                self.test_results.append(("Agent Registration", False, f"Could not get agent card"))
+                self.test_results.append(("Agent Registration", False, "Could not get agent card"))
                 return False
             
             agent_card_data = card_response.json()
@@ -131,14 +131,14 @@ class A2ATester:
                 registry_size = result.get("registry_size", 0)
                 
                 if success and agent_id:
-                    print(f"✅ Agent Registration: PASSED")
+                    print("✅ Agent Registration: PASSED")
                     print(f"   Agent ID: {agent_id}")
                     print(f"   Capabilities: {capabilities}")
                     print(f"   Registry Size: {registry_size}")
                     self.test_results.append(("Agent Registration", True, f"Registered agent {agent_id}"))
                     return True
                 else:
-                    print(f"❌ Agent Registration: FAILED - Registration unsuccessful")
+                    print("❌ Agent Registration: FAILED - Registration unsuccessful")
                     print(f"   Success: {success}")
                     print(f"   Agent ID: {agent_id}")
                     print(f"   Full result: {json.dumps(result, indent=2)}")
@@ -212,12 +212,12 @@ class A2ATester:
                 print(f"Full document query result: {json.dumps(result, indent=2)}")
                 answer = result.get("answer", "")
                 if answer and answer != "No answer provided" and answer.strip():
-                    print(f"✅ Document Query: PASSED")
+                    print("✅ Document Query: PASSED")
                     print(f"   Answer: {answer[:100]}...")
                     self.test_results.append(("Document Query", True, "Query processed successfully"))
                     return True
                 else:
-                    print(f"❌ Document Query: FAILED - No valid answer")
+                    print("❌ Document Query: FAILED - No valid answer")
                     print(f"   Full result: {json.dumps(result, indent=2)}")
                     self.test_results.append(("Document Query", False, "No valid answer returned"))
                     return False

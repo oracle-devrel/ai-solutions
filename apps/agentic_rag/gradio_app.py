@@ -1,7 +1,6 @@
 import gradio as gr
 import os
-from typing import List, Dict, Any, Union
-from pathlib import Path
+from typing import Dict, Any, Union
 import tempfile
 from dotenv import load_dotenv
 import yaml
@@ -9,7 +8,6 @@ import torch
 import time
 import requests
 import json
-import asyncio
 import threading
 from datetime import datetime
 
@@ -17,12 +15,6 @@ from src.pdf_processor import PDFProcessor
 from src.web_processor import WebProcessor
 from src.repo_processor import RepoProcessor
 from src.store import VectorStore
-from src.specialized_agent_cards import (
-    get_planner_agent_card, 
-    get_researcher_agent_card, 
-    get_reasoner_agent_card, 
-    get_synthesizer_agent_card
-)
 
 # Try to import OraDBVectorStore
 try:
@@ -287,7 +279,7 @@ def chat(message: str, history, agent_type: str, use_cot: bool, collection: str)
         }
         
         # Get the actual collection name
-        actual_collection = collection_mapping.get(collection, "pdf_documents")
+        _actual_collection = collection_mapping.get(collection, "pdf_documents")
         
         # Parse agent type to determine model and quantization
         quantization = None
@@ -432,7 +424,7 @@ def chat(message: str, history, agent_type: str, use_cot: bool, collection: str)
         return sanitize_history(history)
     except Exception as e:
         error_msg = f"Error processing query: {str(e)}"
-        print(f"\nError occurred:")
+        print("\nError occurred:")
         print("-" * 50)
         print(error_msg)
         print("="*50 + "\n")
@@ -494,11 +486,11 @@ def test_a2a_document_query(query: str, collection: str, use_cot: bool) -> str:
             sources = result.get("sources", {})
             reasoning = result.get("reasoning_steps", [])
             
-            response_text = f"✅ Document Query Success:\n\n"
+            response_text = "✅ Document Query Success:\n\n"
             response_text += f"Answer: {answer}\n\n"
             
             if reasoning:
-                response_text += f"Reasoning Steps:\n"
+                response_text += "Reasoning Steps:\n"
                 for i, step in enumerate(reasoning, 1):
                     response_text += f"{i}. {step}\n"
                 response_text += "\n"
@@ -583,7 +575,7 @@ def test_a2a_agent_discover(capability: str) -> str:
             result = response.get("result", {})
             agents = result.get("agents", [])
             
-            response_text = f"✅ Agent Discovery Success:\n\n"
+            response_text = "✅ Agent Discovery Success:\n\n"
             response_text += f"Capability: {capability}\n"
             response_text += f"Found {len(agents)} agents:\n\n"
             
@@ -745,7 +737,7 @@ def a2a_chat(message: str, history, agent_type: str, use_cot: bool, collection: 
                     break
             
             # Format Plan
-            plan_display = f"📋 **Planner A (v1.0)**: Decomposing task into sub-steps...\n\n"
+            plan_display = "📋 **Planner A (v1.0)**: Decomposing task into sub-steps...\n\n"
             for step in steps:
                 plan_display += f"- {step}\n"
             
@@ -816,7 +808,7 @@ def a2a_chat(message: str, history, agent_type: str, use_cot: bool, collection: 
                 yield sanitize_history(current_history)
                 time.sleep(0.5)
 
-                append_msg("assistant", f"🧠 **Reasoner A (DeepThink)**: Analyzing findings...", is_intermediate=True)
+                append_msg("assistant", "🧠 **Reasoner A (DeepThink)**: Analyzing findings...", is_intermediate=True)
                 yield sanitize_history(current_history)
                 time.sleep(1)
 
@@ -920,7 +912,7 @@ def a2a_chat(message: str, history, agent_type: str, use_cot: bool, collection: 
 
     except Exception as e:
         error_msg = f"A2A Chat Error: {str(e)}"
-        print(f"\nA2A Chat Error:")
+        print("\nA2A Chat Error:")
         print("-" * 50)
         print(error_msg)
         import traceback
@@ -952,7 +944,7 @@ def create_interface():
             # Try to continue with minimal initialization
             try:
                 original_blocks_init(self, *args, **kwargs)
-            except:
+            except Exception:
                 pass
         
         # Safely get the original get_api_info method
@@ -960,7 +952,8 @@ def create_interface():
             original_get_api_info = self.get_api_info
         except AttributeError:
             # If get_api_info doesn't exist, create a dummy method
-            original_get_api_info = lambda: {}
+            def original_get_api_info():
+                return {}
         
         def safe_get_api_info():
             """Safely get API info, never raising exceptions to prevent blocking"""
@@ -1428,7 +1421,7 @@ def create_interface():
                         return
                     
                     if not p_a and p_b:
-                        new_history.append(msg(f"⚠️ Planner A is BUSY. Swapping to available agent..."))
+                        new_history.append(msg("⚠️ Planner A is BUSY. Swapping to available agent..."))
                         yield new_history, new_history
                         time.sleep(1)
                     
@@ -1455,7 +1448,7 @@ def create_interface():
                         return
                         
                     if not res_a and res_b:
-                        new_history.append(msg(f"⚠️ Researcher A is BUSY. Swapping to available agent..."))
+                        new_history.append(msg("⚠️ Researcher A is BUSY. Swapping to available agent..."))
                         yield new_history, new_history
                         time.sleep(1)
 
@@ -1512,7 +1505,7 @@ def create_interface():
                         return
                     
                     if not rea_a and rea_b:
-                        new_history.append(msg(f"⚠️ Reasoner A is BUSY. Swapping to available agent..."))
+                        new_history.append(msg("⚠️ Reasoner A is BUSY. Swapping to available agent..."))
                         yield new_history, new_history
                         time.sleep(1)
 
@@ -1539,7 +1532,7 @@ def create_interface():
                         return
 
                     if not syn_a and syn_b:
-                        new_history.append(msg(f"⚠️ Synthesizer A is BUSY. Swapping to available agent..."))
+                        new_history.append(msg("⚠️ Synthesizer A is BUSY. Swapping to available agent..."))
                         yield new_history, new_history
                         time.sleep(1)
 
@@ -1789,7 +1782,7 @@ def download_model(model_type: str) -> str:
                 
                 # Download tokenizer first (smaller download to check access)
                 try:
-                    tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
+                    _tokenizer = AutoTokenizer.from_pretrained(model_name, token=hf_token)
                 except Exception as e:
                     if "401" in str(e):
                         return f"❌ Error: This model is gated. Please accept the terms on the Hugging Face website: https://huggingface.co/{model_name}"
