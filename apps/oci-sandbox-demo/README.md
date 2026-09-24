@@ -102,4 +102,3 @@ See [infra/README.md](infra/README.md) for project creation, sandbox enablement,
 
 - [OCI provider guide for OpenAI environments](https://developers.openai.com/api/docs/guides/agents-api/environments/providers/oci)
 - [OpenAI Agents SDK: agent orchestration](https://openai.github.io/openai-agents-python/multi_agent/)
-- [Oracle GenAI Sandboxes User Guide (internal)](https://confluence.oraclecorp.com/confluence/pages/viewpage.action?pageId=20677439262)

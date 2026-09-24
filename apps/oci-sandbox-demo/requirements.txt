@@ -1,6 +1,7 @@
 streamlit>=1.42,<2
 openai>=1.65,<2
 python-dotenv>=1.0,<2
+aiohttp>=3.10,<4
 #Install preview SDKs from OCI internal repo (till we release them as GA) 
 #oci                       2.186.1+preview.1.20260916185222
 #oci-cli                   3.93.1+preview.1.1806

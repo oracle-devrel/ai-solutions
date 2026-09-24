@@ -14,3 +14,5 @@ README.md
 deployment-local/*
 !deployment-local/Dockerfile
 !deployment-local/.env
+!deployment-local/wheels/
+!deployment-local/wheels/*.whl

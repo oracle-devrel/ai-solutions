@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import time
 import base64
+import os
 import shlex
 from collections.abc import Iterator
 
@@ -40,9 +41,19 @@ def run_single_turn(
             "Oracle-provided wheel and run infra/bootstrap_sandbox_project.sh --apply."
         ) from exc
 
-    config = oci.config.from_file(profile_name=profile)
     endpoint = f"https://inference.generativeai.{region}.oci.oraclecloud.com"
-    client = GenerativeAiSandboxClient(config=config, service_endpoint=endpoint)
+    # OCI Container Instances exposes resource-principal v2.2 variables when
+    # resource-principal access is enabled.  Prefer those workload credentials:
+    # they require no ~/.oci/config or user API signing key in the image.
+    if os.getenv("OCI_RESOURCE_PRINCIPAL_VERSION"):
+        signer = oci.auth.signers.get_resource_principals_signer()
+        client = GenerativeAiSandboxClient(
+            config={"region": region}, signer=signer, service_endpoint=endpoint
+        )
+    else:
+        # Local development continues to use the named user-principal profile.
+        config = oci.config.from_file(profile_name=profile)
+        client = GenerativeAiSandboxClient(config=config, service_endpoint=endpoint)
     # OCI's vendored Requests session otherwise inherits HTTP(S)_PROXY from the
     # Streamlit process. Sandbox API traffic must connect directly in this lab.
     client.base_client.session.trust_env = False

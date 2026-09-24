@@ -923,7 +923,6 @@ PY''',
         st.markdown(
             "- [OCI provider guide for OpenAI environments](https://developers.openai.com/api/docs/guides/agents-api/environments/providers/oci)\n"
             "- [OpenAI Agents SDK: orchestration patterns](https://openai.github.io/openai-agents-python/multi_agent/)\n"
-            "- [Oracle GenAI Sandboxes User Guide (internal)](https://confluence.oraclecorp.com/confluence/pages/viewpage.action?pageId=20677439262)"
         )
 
     st.markdown(
