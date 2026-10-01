@@ -10,7 +10,16 @@ Welcome to the AI Solutions repository, a collection of deployable apps, worksho
 
 ## 🚀 New AI Solutions (2026)
 
-### 1. [OCI GenAI Sandbox Lab](./apps/oci-sandbox-demo/)
+### 1. [OCI GenAI Routing Profile Lab](./apps/oci-genai-routing-profile/)
+**Validate OCI Generative AI Routing Profiles Across Multiple Agent Workflows**
+
+- **Routing-Profile Validation**: Confirm selected inference regions comply with the profile's allowed-region policy
+- **OpenAI-Compatible API**: Use the routing-profile OCID directly as the model with the OpenAI Python SDK
+- **Agent Workflows**: Run equivalent LangChain chat-agent and OpenAI Agents SDK experiments
+- **Response Verification**: Capture `x-genai-selected-region` response headers for every live request
+- **Terraform Automation**: Provision a routing profile and compartment-scoped API-key policy
+
+### 2. [OCI GenAI Sandbox Lab](./apps/oci-sandbox-demo/)
 **Interactive Lab for OCI Generative AI Sandboxes and the OpenAI-Compatible Responses API**
 
 - **Sandbox Tutorials**: Executable tutorials for OCI Generative AI Sandboxes
@@ -19,7 +28,7 @@ Welcome to the AI Solutions repository, a collection of deployable apps, worksho
 - **Agent Workflows**: Examples for OpenAI Agents SDK and LangGraph workflows
 - **Use Cases**: Secure experimentation, agent development, web research, and model evaluation
 
-### 2. [MCP Audio on OKE](./apps/oracle-mcp-oke/)
+### 3. [MCP Audio on OKE](./apps/oracle-mcp-oke/)
 **Deploy an MCP Audio Server and Client on Oracle Kubernetes Engine (OKE)**
 
 - **MCP Audio Server**: Audio transcription and text-analysis workflows exposed through MCP
@@ -28,7 +37,7 @@ Welcome to the AI Solutions repository, a collection of deployable apps, worksho
 - **OCIR Integration**: Build and publish container images to Oracle Cloud Infrastructure Registry
 - **Use Cases**: Audio transcription, sentiment analysis, and MCP-enabled AI applications
 
-### 3. [Oracle MCP AI Agents](./apps/oracle-mcp-ai-agents/)
+### 4. [Oracle MCP AI Agents](./apps/oracle-mcp-ai-agents/)
 **Building AI Agents with Model Context Protocol (MCP) and Oracle AI Database**
 
 - **MCP Integration**: Secure tool calling between LLMs and Oracle Database
@@ -37,7 +46,7 @@ Welcome to the AI Solutions repository, a collection of deployable apps, worksho
 - **Langflow Integration**: Visual workflow builder for AI agents
 - **Use Cases**: Financial advisor, customer service, business intelligence
 
-### 4. [Oracle Select AI Insights](./apps/oracle-select-ai-insights/)
+### 5. [Oracle Select AI Insights](./apps/oracle-select-ai-insights/)
 **Talk with Industry-Specific Domain Data and Gain Insights Using Select AI**
 
 - **Natural Language Queries**: Ask questions in plain English
@@ -85,6 +94,7 @@ Welcome to the AI Solutions repository, a collection of deployable apps, worksho
 - **[mongo-migration](./apps/mongo-migration/)** - Migration tools and solutions for moving MongoDB applications to Oracle Database
 - **[nvidia-nim-oke](./apps/nvidia-nim-oke/)** - Deploying NVIDIA Inference Microservices on Oracle Kubernetes Engine with GPU support
 - **[oci-csv-json-translation](./apps/oci-csv-json-translation/)** - Translate specific columns in CSV files or keys in JSON documents using OCI Language
+- **[oci-genai-routing-profile](./apps/oci-genai-routing-profile/)** - Local lab for validating OCI Generative AI routing profiles with OpenAI SDK, LangChain, and OpenAI Agents SDK workflows
 - **[oci-language-multiple-translation](./apps/oci-language-multiple-translation/)** - Bulk translation of multiple documents from OCI Object Storage buckets
 - **[oci-language-translation](./apps/oci-language-translation/)** - Multi-language translation services for documents and text using OCI Language
 - **[oci-sandbox-demo](./apps/oci-sandbox-demo/)** - Interactive Streamlit lab for OCI Generative AI Sandboxes and the OpenAI-compatible Responses API

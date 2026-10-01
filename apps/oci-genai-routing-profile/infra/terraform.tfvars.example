@@ -1,0 +1,14 @@
+compartment_id  = "ocid1.compartment.oc1..replace-me"
+tenancy_id      = "ocid1.tenancy.oc1..replace-me"
+# Empty uses compartment_id. Set another OCID to scope API-key access to an
+# existing profile's owning compartment. This does not import that profile.
+policy_compartment_id = ""
+display_name    = "gpt-oss-approved-regions"
+model_id        = "openai.gpt-oss-120b"
+# Allowed serving regions: choose regions where the model is offered in one realm.
+# The app derives its entry endpoint from the created profile's OCID region.
+target_regions  = ["us-chicago-1"]
+# This profile's configured region determines where Terraform creates the profile.
+oci_cli_profile = "DEFAULT"
+# Set false if API-key permissions are managed separately.
+create_api_key_policy = true

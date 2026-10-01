@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>OCI Routing Profile Lab</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <div><span class="eyebrow">ORACLE CLOUD INFRASTRUCTURE · GENERATIVE AI</span><h1>Routing Profile Lab</h1><p>Run live traffic experiments and collect OCI’s serving-region evidence. <a class="docs-link" href="https://docs.oracle.com/en-us/iaas/Content/generative-ai/routing-profile.htm" target="_blank" rel="noreferrer">Routing profile docs ↗</a></p></div>
+    <span id="status" class="status">Checking server…</span>
+  </header>
+  <main>
+    <section class="card configuration">
+      <h2>Request configuration</h2>
+      <label>Routing profile OCID <span class="input-with-action"><input id="profile" readonly placeholder="ocid1.generativeairoutingprofile..."><button class="edit-profile" id="edit-profile" type="button" aria-label="Edit routing profile OCID" title="Edit routing profile">✎</button></span></label>
+      <small>Used as the OpenAI SDK <code>model</code>. Credentials remain server-side.</small>
+      <label>Prompt <textarea id="prompt">In exactly one short sentence, explain why regional routing controls matter.</textarea></label>
+      <div class="button-row"><button id="run">Run once <span>↗</span></button><button class="secondary" id="load-profile">Validate profile</button></div>
+    </section>
+    <section class="card evidence">
+      <div class="section-head"><h2>Routing policy evidence</h2><span id="profile-state" class="pill">Not loaded</span></div>
+      <div id="profile-details" class="empty">Load the profile to see its active model and approved target regions.</div>
+    </section>
+    <section class="card experiment">
+      <div class="section-head"><div><h2>Live routing experiment</h2><p>Each call records <code>x-genai-selected-region</code>.</p></div><div class="run-actions"><button id="experiment-run">Run experiment</button><button class="secondary" id="experiment-cancel" disabled>Cancel run</button></div></div>
+      <div class="task-tabs" id="task-tabs"><button class="task active" data-task="direct">1 · Direct inference<small>OpenAI SDK</small></button><button class="task" data-task="langchain">2 · LangChain agent<small>Chat workflow</small></button><button class="task" data-task="agents-sdk">3 · Agents SDK<small>OpenAI agent</small></button><button class="task" data-task="oci-sdk">4 · OCI Python SDK<small>DEFAULT config</small></button></div>
+      <div class="experiment-controls"><label>Requests <input id="count" type="number" min="1" max="24" value="9"></label><label>Concurrency <input id="concurrency" type="number" min="1" max="6" value="3"></label></div>
+      <div id="experiment-summary" class="empty">Run several requests to observe OCI’s region selections.</div>
+      <div id="latency-chart" class="latency-chart empty">Latency by selected region will appear here.</div>
+      <div id="experiment-results"></div>
+    </section>
+    <section class="card command"><div class="section-head"><h2>Equivalent Python SDK call</h2><button class="copy" id="copy">Copy</button></div><pre id="sdk"></pre></section>
+    <section class="card logs"><div class="section-head"><h2>Execution log</h2><button class="copy" id="refresh">Refresh</button></div><div id="loglines">No activity yet.</div></section>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+node_modules/
+__pycache__/
+*.py[cod]
+terraform.tfstate*
+.terraform/
+infra/routing-profile-id.txt
+infra/terraform.tfvars
