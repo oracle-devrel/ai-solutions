@@ -10,7 +10,7 @@ Welcome to the AI Solutions repository, a collection of deployable apps, worksho
 
 ## 🚀 New AI Solutions (2026)
 
-### 1. [OCI GenAI Routing Profile Lab](./apps/oci-genai-routing-profile/)
+### 1. [OCI GenAI Smart Model Router](./apps/oci-genai-routing-profile/)
 **Validate OCI Generative AI Routing Profiles Across Multiple Agent Workflows**
 
 - **Routing-Profile Validation**: Confirm selected inference regions comply with the profile's allowed-region policy

@@ -1,6 +1,6 @@
-# OCI Routing Profile Lab
+# OCI Genai Smart Model Router Lab
 
-A local app for exercising OCI Generative AI routing profiles through four SDK workflows. Each request uses the selected routing-profile OCID as the model identifier and records the response's `x-genai-selected-region` header.
+A local app for exercising OCI Generative AI Smart Model Router through four SDK workflows. Each request uses the selected routing-profile OCID as the model identifier and records the response's `x-genai-selected-region` header.
 
 | Experiment mode | Client | Authentication |
 | --- | --- | --- |
