@@ -417,5 +417,5 @@ class Handler(SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "3000"))
-    print(f"OCI Routing Profile Demo: http://localhost:{port}")
+    print(f"OCI Smart Model Router Demo: http://localhost:{port}")
     ThreadingHTTPServer(("0.0.0.0", port), Handler).serve_forever()
